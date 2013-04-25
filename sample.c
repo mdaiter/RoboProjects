@@ -98,6 +98,7 @@ void detectBoard(){
     * Then stop.
     */
     while (true){
+        wait1Msec(1);
         if (SensorValue[sonar] < 64 &&
                 SensorValue[sonar] > 0){
             stopMotors();
@@ -121,6 +122,7 @@ void correctPositionCenter(int pos){
     motor[motorleft] = -60;
     motor[motorright] = 60;
     while(true){
+        wait1Msec(1);
     //If then sonar is at pos, STAHP.
         if (SensorValue[sonar] == pos){
             stopMotors();
@@ -143,6 +145,7 @@ void detectCenter(){
     int slope = -1;
     //while slope is negative
     while (slope < 0){
+
         //get initial value of sensor at iteration
         int tempOld = SensorValue[sonar];
         wait10Msec(10);
