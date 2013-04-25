@@ -145,8 +145,8 @@ void detectCenter(){
     while (slope < 0){
         //get initial value of sensor at iteration
         int tempOld = SensorValue[sonar];
-        wait10Msec(1);
-        //get new value after 10 msec
+        wait10Msec(10);
+        //get new value after 100 msec
         int tempNew = SensorValue[sonar];
         //prevent against errors from the sonar...
         if (tempNew != -1 && tempOld != -1){
