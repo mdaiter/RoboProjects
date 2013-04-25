@@ -57,7 +57,7 @@ void goCentimeters(float cm){
   motor[motorright] = 90;
  while (-SensorValue[leftEncoder] < encoderAmount
    && -SensorValue[rightEncoder] < encoderAmount){
-   startTask(autoCorrect);
+   //startTask(autoCorrect);
   wait1Msec(1);
   }
  motor[motorleft] = 0;
@@ -97,9 +97,12 @@ void detectBoard(){
     *         (pos_{robot})
     * Then stop.
     */
-    if (SensorValue[sonar] < 64 &&
-            SensorValue[sonar] > 0){
-        stopMotors();
+    while (true){
+        if (SensorValue[sonar] < 64 &&
+                SensorValue[sonar] > 0){
+            stopMotors();
+            break;
+        }
     }
 }
 
@@ -117,9 +120,12 @@ void correctPositionCenter(int pos){
     //Turn motors in other direction
     motor[motorleft] = -60;
     motor[motorright] = 60;
-    //If the sonar is at pos, STAHP.
-    if (SensorValue[sonar] == pos){
-        stopMotors();
+    while(true){
+    //If then sonar is at pos, STAHP.
+        if (SensorValue[sonar] == pos){
+            stopMotors();
+            break;
+        }
     }
 }
 /*
@@ -144,13 +150,14 @@ void detectCenter(){
         int tempNew = SensorValue[sonar];
         //prevent against errors from the sonar...
         if (tempNew != -1 && tempOld != -1){
-            x = calculateSlope(tempOld, tempNew);
+            slope = calculateSlope(tempOld, tempNew);
         }
         //if x is positive, STAHP (also breaks)
-        if (x >= 0){
+        if (slope >= 0){
             stopMotors();
             //Past value must have been the minimum.
             correctPositionCenter(tempOld);
+            break;
         }
     }
 
