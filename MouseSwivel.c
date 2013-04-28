@@ -198,6 +198,9 @@ task main()
   while(SensorValue[bump] == 0) {}
   //Based off of a reactionary model. Simply put, always run
   //until cheese is hit.
+
+  //Got to give it the baby step first...
+  moveTillNear(14);
     while(true){
         //Repeatedly check for the sonar to be less than or equal
         //to 14. If so, check state and react to it.
