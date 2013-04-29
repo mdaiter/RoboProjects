@@ -202,6 +202,7 @@ task main()
   //Got to give it the baby step first...
   moveTillNear(14);
     while(true){
+        wait1Msec(10);
         //Repeatedly check for the sonar to be less than or equal
         //to 14. If so, check state and react to it.
         if (SensorValue[sonar] <= 14){
