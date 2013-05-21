@@ -25,7 +25,7 @@ void turnLeft(int degrees){
     }
 }
 
-int[][] generateMap(string listOfCommands){
+/*int[][] generateMap(string listOfCommands){
     Direction currDirection = south;
     int strLength = strLen(listOfCommands);
     //Can never be larger than list of commands itself
@@ -90,10 +90,44 @@ int[][] generateMap(string listOfCommands){
                 break;
         }
     }
+}*/
+
+int formatArr(char **listofCommands, char ***newList, int length){
+    int count = 0;
+    char* bufferStr;
+    for (int i = 0; i < length; i++){
+        if (atoi(strIndex(listOfCommands[0],i)) == 0){
+            *newList[count] = bufferStr;
+            count++;
+            *newList[count] = *listOfCommands[i];
+            bufferStr = NULL;
+        }
+        else{
+            strcat(bufferStr, *listOfCommands[i]);
+        }
+    }
 }
 
-void navigate(string listOfCommands){
-    int[][] mapOfPos = generateMap(listOfCommands);
+void navigate(char **listOfCommands, int length){
+    /*int[][] mapOfPos = generateMap(listOfCommands);*/
+    char** newList;
+    int newLength = formatArr(listOfCommands, &newList, length);
+    for (int i = 0; i < newLength; i++){
+            if (strcmp(newList[i],"L") == 0){
+                turnLeft(90);
+            }
+            else if(strcmp(newList[i],"R") == 0){
+                //Turn right
+                turnRight(90);
+            }
+            else if(strcmp(newList[i], "G") == 0){
+                break;
+            }
+            else{
+                //Go forwards certain amount.
+            }
+        }
+    }
 }
 
 task main()
@@ -101,17 +135,17 @@ task main()
     turnLeft(180);
     turnRight(180);
 
-    string stream;
+    char* stream;
     configureSerialPort (uartOne, uartUserControl);
     setBaudRate(uartOne, baudRate9600);
     while (getChar(uartOne) != -1);
     while (true){
         char incomingChar = getChar(uartOne);
-        if (incomingChar == 'b'){
-            navigate();
+        if (incomingChar == 'G'){
+            navigate(&stream, strlen(stream));
         }
         else{
-            steam += incomingChar;
+            strcat(stream, &incomingChar);
         }
     }
 
