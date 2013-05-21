@@ -100,12 +100,14 @@ int formatArr(char **listofCommands, char ***newList, int length){
             *newList[count] = bufferStr;
             count++;
             *newList[count] = *listOfCommands[i];
+            count++;
             bufferStr = NULL;
         }
         else{
             strcat(bufferStr, *listOfCommands[i]);
         }
     }
+    return count;
 }
 
 void navigate(char **listOfCommands, int length){
